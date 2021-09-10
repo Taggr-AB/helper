@@ -1,11 +1,107 @@
 <html>
-<form>
-  <label for="lat">Latitude</label>
-  <input type="text" id="lat" name="lat"><br><br>
-  <label for="lng">Longitude</label>
-  <input type="text" id="lng" name="lng"><br><br>
-  <input type="submit" value="Submit">
-</form>
+
+
+  <form>
+    <label for="lat">Latitude</label>
+    <input type="text" id="lat" name="lat"><br><br>
+    <label for="lng">Longitude</label>
+    <input type="text" id="lng" name="lng"><br><br>
+    <input type="button" onClick='doCalculate();' value="Submit">
+  </form>
+
+  <input type="text" id="formattedLat"><br>
+  <input type="text" id="formattedLng"><br>
+
+
+<script type="text/javascript">
+  
+  function ToHex(d) {
+
+      var sign = "0";
+
+      if(d<0.0){
+          sign = "1";
+          d = -d;
+      }
+
+      var mantissa = parseFloat(d).toString(2);
+
+      var exponent = 0;
+
+      if(mantissa.substr(0,1) === "0"){
+          exponent = mantissa.indexOf('.') - mantissa.indexOf('1') + 127;
+      }
+      else{
+          exponent = mantissa.indexOf('.') - 1 + 127;
+      }
+
+      mantissa = mantissa.replace(".", "");
+      mantissa = mantissa.substr(mantissa.indexOf('1')+1);
+
+      if(mantissa.length>23){
+          mantissa = mantissa.substr(0,23);
+      }
+      else{
+          while(mantissa.length<23){
+              mantissa = mantissa +"0";
+          }
+      }
+
+      var exp = parseFloat(exponent).toString(2);
+
+      while(exp.length<8){
+          exp = "0" + exp;
+      }
+
+      var numberFull = sign + exp + mantissa;
+
+      return parseInt(numberFull, 2).toString(16);
+  }
+
+
+  function doCalculate() {
+    let lat = document.getElementById("lat").value;
+    let lng = document.getElementById("lng").value;
+
+
+    fLat = parseFloat(lat)
+    fLng = parseFloat(lng)
+
+    fLat = fLat.toFixed(4)
+    fLng = fLng.toFixed(4)
+
+    console.log("LAT : ", fLat)
+    console.log("LNG : ", fLng)
+
+    let latField = document.getElementById('lat')
+    let lngField = document.getElementById('lng')
+
+    latField.value = fLat
+    lngField.value = fLng
+
+
+    console.log("HEX lat: "+ToHex(fLat))
+    console.log("HEX lng: "+ToHex(fLng))
+
+
+    fLatHexField = document.getElementById('formattedLat')
+    fLngHexField = document.getElementById('formattedLng')
+
+    console.log("1 : ", fLatHexField)
+    console.log("2 : ", fLngHexField)
+
+    fLatHexField.value = ToHex(fLat)    
+    fLngHexField.value = ToHex(fLng)
+
+  }
+
+
+
+
+
+
+</script>
+
 
 </html>
 

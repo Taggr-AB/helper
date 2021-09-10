@@ -9,8 +9,9 @@
     <input type="button" onClick='doCalculate();' value="Submit">
   </form>
 
-  <input type="text" id="formattedLat"><br>
-  <input type="text" id="formattedLng"><br>
+
+  <label for="formattedLat">Latitude</label> <input type="text" id="formattedLat"><br>
+  <label for="formattedLng">Longitude</label> <input type="text" id="formattedLng"><br>
 
 
 <script type="text/javascript">
@@ -70,9 +71,6 @@
     fLat = fLat.toFixed(4)
     fLng = fLng.toFixed(4)
 
-    console.log("LAT : ", fLat)
-    console.log("LNG : ", fLng)
-
     let latField = document.getElementById('lat')
     let lngField = document.getElementById('lng')
 
@@ -80,15 +78,8 @@
     lngField.value = fLng
 
 
-    console.log("HEX lat: "+ToHex(fLat))
-    console.log("HEX lng: "+ToHex(fLng))
-
-
     fLatHexField = document.getElementById('formattedLat')
     fLngHexField = document.getElementById('formattedLng')
-
-    console.log("1 : ", fLatHexField)
-    console.log("2 : ", fLngHexField)
 
     fLatHexField.value = ToHex(fLat)    
     fLngHexField.value = ToHex(fLng)
